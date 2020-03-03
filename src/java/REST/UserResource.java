@@ -133,7 +133,7 @@ public class UserResource {
 
     }
 
-    //Lofin Method
+    //Login Method
     @POST
     @Path("/Login")
     @Produces(MediaType.APPLICATION_JSON)
