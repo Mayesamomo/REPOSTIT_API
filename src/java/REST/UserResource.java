@@ -17,7 +17,6 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
-import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -69,18 +68,19 @@ public class UserResource {
     }
 
     private User convertJsonStringToUser(String jsonString) throws org.json.simple.parser.ParseException {
-        User u = null;
+        //User u = null ;
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(jsonString);
-        int user_id = ((Long) obj.get("user_id")).intValue();
-        u.setId(-1);
-        u.setId(-1);
+        //int user_id = ((Long) obj.get("user_id")).intValue();
+        //u.setId(user_id);
         u.setFullName((String) obj.get("fullName"));
         u.setUsername((String) obj.get("user_name"));
         u.setPassword((String) obj.get("password")); //password must not be return 
         u.setEmail((String) obj.get("email"));
         String usertype = ((Long) obj.get("user_type")).toString();
-        int status = ((Long) obj.get("user_status")).intValue();
+        u.setUserType(UserType.valueOf(usertype));
+       // int status = ((Long) obj.get("user_status")).intValue();
+        //u.setStatus(status);
         return u;
     }
 
@@ -90,7 +90,7 @@ public class UserResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("/AllUses")
+    @Path("/AllUsers")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
         ArrayList<User> users = db.getAllUsers();
@@ -146,18 +146,16 @@ public class UserResource {
             if (u.getUsername() != null && u.getPassword() != null) {
                 boolean res = db.login(u.getUsername(), u.getPassword());
                 if (res) {
-
                     return res;
                 }
 
-            } else {
-                return false;
             }
+            return false;
         }
         return false;
     }
-
     //
+
     @POST
     @Path("/Register")
     @Produces(MediaType.APPLICATION_JSON)

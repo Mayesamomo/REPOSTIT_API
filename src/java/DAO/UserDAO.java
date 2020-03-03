@@ -23,6 +23,7 @@ public class UserDAO extends DAO implements Userinterface {
         super(database);
     }
 //returns a user with the given user Id
+///git a specific user with a specific ID
 
     @Override
     public List<User> getUsers(int id) {
@@ -87,15 +88,14 @@ public class UserDAO extends DAO implements Userinterface {
                         rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("user_type"),
-                         rs.getInt("user_status"),
+                        rs.getInt("user_status"),
                         rs.getString("date"));
-                       
+
                 users.add(u);
             }
         } catch (SQLException e) {
             System.out.println("Exception occured in the getAllUsers() method: " + e.getMessage());
-        }
-        finally {
+        } finally {
             try {
                 if (rs != null) {
                     rs.close();
@@ -113,11 +113,12 @@ public class UserDAO extends DAO implements Userinterface {
         return users;
     }
 
+    //check if user exists in the database
     @Override
     public boolean checkIfExist(String username, String email) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        Connection con;
+        PreparedStatement ps;
+        ResultSet rs;
         // ArrayList<User> users = new ArrayList();
         boolean flag = false;
         try {
@@ -247,15 +248,15 @@ public class UserDAO extends DAO implements Userinterface {
         flag = false;
         return flag;
     }
-    
+
     //update customers info
     @Override
- public int updateCustomer(User user) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        int end = 0;
-       // String userInput;
+    public int updateCustomer(User user) {
+        Connection conn;
+        PreparedStatement ps;
+        ResultSet rs;
+        // int end = 0;
+        // String userInput;
         try {
             conn = getConnection();
 
@@ -265,7 +266,7 @@ public class UserDAO extends DAO implements Userinterface {
             ps.setString(2, user.getFullName());
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getPassword());
-            ps.setObject(5,user.getUserType());
+            ps.setObject(5, user.getUserType());
             ps.setInt(6, user.getStatus());
 
             ps.executeUpdate();
@@ -276,6 +277,7 @@ public class UserDAO extends DAO implements Userinterface {
         } catch (SQLException se) {
             System.out.println("SQL Exception occurred: " + se.getMessage());
             return 0;
-        } 
+        }
     }
+
 }
