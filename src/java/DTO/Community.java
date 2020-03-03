@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,7 +6,6 @@
 package DTO;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,6 +33,16 @@ public class Community {
         this.community_desc = community_desc;
         this.user_id = user_id;
     }
+
+    public Community(int community_id, String community_name, String community_desc, int community_status, int user_id) {
+        this.community_id = community_id;
+        this.community_name = community_name;
+        this.community_desc = community_desc;
+        this.community_status = community_status;
+        this.user_id = user_id;
+    }
+
+   
 
     
     public int getCommunity_id() {
