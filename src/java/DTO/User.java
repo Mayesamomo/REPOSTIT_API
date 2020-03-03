@@ -6,13 +6,16 @@
 package DTO;
 
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author micha
  */
+@XmlRootElement
 public class User {
-
+@XmlAttribute
     private int Id;
     private String fullName;
     private String username;
