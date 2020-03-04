@@ -19,14 +19,16 @@ import java.util.List;
  */
 public class UserDAO extends DAO implements Userinterface {
 
-    public UserDAO(String database) {
-        super(database);
+    private static UserDAO ourInstance = new UserDAO();
+
+    public static UserDAO getInstance() {
+        return ourInstance;
     }
+    // public UserDAO(String database) {
+    //  super(database);
+    //}
 //returns a user with the given user Id
 ///git a specific user with a specific ID
-
-   
-        
 
     @Override
     public List<User> getUsers(int id) {
@@ -37,7 +39,7 @@ public class UserDAO extends DAO implements Userinterface {
 
         try {
             con = getConnection();
-            String query = "Select * from users where user_id =" + id;
+            String query = "Select user_id,fullName,user_name,email,user_type,user_status,date from users where user_id =" + id;
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -46,7 +48,6 @@ public class UserDAO extends DAO implements Userinterface {
                         rs.getString("fullName"),
                         rs.getString("user_name"),
                         rs.getString("email"),
-                        rs.getString("password"),
                         rs.getString("user_type"),
                         rs.getInt("user_status"),
                         rs.getString("date"));
@@ -81,7 +82,7 @@ public class UserDAO extends DAO implements Userinterface {
         ArrayList<User> users = new ArrayList();
         try {
             con = getConnection();
-            String query = "Select * from users";
+            String query = "Select user_id,fullName,user_name,email,user_type,user_status,date from users";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -89,7 +90,6 @@ public class UserDAO extends DAO implements Userinterface {
                         rs.getString("fullName"),
                         rs.getString("user_name"),
                         rs.getString("email"),
-                        rs.getString("password"),
                         rs.getString("user_type"),
                         rs.getInt("user_status"),
                         rs.getString("date"));
@@ -135,15 +135,17 @@ public class UserDAO extends DAO implements Userinterface {
             //set a counter to loop through the available users in the database
             //int count = 0;
             if (rs.next()) {
-                flag = false;
+
+                flag = true;
                 return flag;
             } else {
-                flag = true;
+
+                flag = false;
                 return flag;
             }
 
         } catch (SQLException e) {
-            System.out.println("Exception occured in the register() method: " + e.getMessage());
+            System.out.println("Exception occured in the checkIfExist() method: " + e.getMessage());
         }
         return flag;
     }
@@ -153,20 +155,24 @@ public class UserDAO extends DAO implements Userinterface {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<User> users = new ArrayList();
+        //ArrayList<User> users = new ArrayList();
         boolean flag;
         if (checkIfExist(user.getUsername(), user.getEmail())) {
             try {
+                // Get a statement from the connection
                 con = getConnection();
-                ps = con.prepareStatement("insert into users (Huser_name,fullName,email,password) values (?, ?, ?, ?)");
-                ps.setString(1, user.getUsername());
-                ps.setString(2, user.getEmail());
-                ps.setString(3, user.getPassword());
+                ps = con.prepareStatement("insert into users (fullName,user_name,email,password) values (?, ?, ?, ?)");
+                ps.setString(1, user.getFullName());
+                ps.setString(2, user.getUsername());
+                ps.setString(3, user.getEmail());
+                ps.setString(4, user.getPassword());
+                // Execute the query
                 ps.executeUpdate();
-                System.out.println(" Account created");
-                users.add(user);
+                //rs = ps.getGeneratedKeys();
                 flag = true;
                 return flag;
+                //System.out.println(" Account created");
+                //users.add(user);
 
             } catch (SQLException e) {
                 System.out.println("Exception occured in the register() method: " + e.getMessage());
@@ -185,13 +191,12 @@ public class UserDAO extends DAO implements Userinterface {
                     System.out.println("Exception occured in the finally section of the register() method: " + e.getMessage());
                 }
             }
-            // return flag;
-
         } else {
             flag = false;
             return flag;
+
         }
-        // return false;
+
         return false;
 
     }
@@ -283,4 +288,12 @@ public class UserDAO extends DAO implements Userinterface {
         }
     }
 
+    public static void main(String[] args) {
+        UserDAO dao = new UserDAO();
+        String username = "modc";
+        String email = "animegang@gmail.com";
+        String password = "password";
+        System.out.println(dao.login(username, password));
+
+    }
 }

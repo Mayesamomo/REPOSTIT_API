@@ -14,14 +14,14 @@ import java.sql.SQLException;
  * @author micha
  */
 public class DAO {
-     protected String database;
+   //  protected String database;
 
-    public DAO(String database) {
-        this.database = database;
-    }
+    //public DAO(String database) {
+     //  this.database = database;
+   // }
      public Connection getConnection() throws SQLException {
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/"+ database;
+        String url = "jdbc:mysql://localhost:3306/repostit";//+ database;
         String username = "root";
         String password = "";
         Connection con = null;

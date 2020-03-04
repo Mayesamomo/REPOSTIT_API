@@ -29,16 +29,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(ClassTesting.CommentFacadeREST.class);
-        resources.add(ClassTesting.CommunityFacadeREST.class);
-        resources.add(ClassTesting.PostFacadeREST.class);
-        resources.add(ClassTesting.TagsFacadeREST.class);
-        resources.add(ClassTesting.UsersFacadeREST.class);
-        resources.add(ClassTesting.service.CommentFacadeREST.class);
-        resources.add(ClassTesting.service.CommunityFacadeREST.class);
-        resources.add(ClassTesting.service.PostFacadeREST.class);
-        resources.add(ClassTesting.service.TagsFacadeREST.class);
-        resources.add(ClassTesting.service.UsersFacadeREST.class);
         resources.add(REST.CrossOriginResourceSharingFilter.class);
         resources.add(REST.PostResource.class);
         resources.add(REST.UserResource.class);

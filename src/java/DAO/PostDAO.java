@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class PostDAO extends DAO implements PostInterface {
 //
 
-    public PostDAO(String database) {
-        super(database);
-    }
+    //public PostDAO(String database) {
+       // super(database);
+   // }
 
     @Override
     public ArrayList<Post> getAllPosts() {

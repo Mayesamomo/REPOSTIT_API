@@ -18,9 +18,9 @@ import java.util.ArrayList;
  */
 public class CommunityDAO extends DAO implements CommunityInterface {
 
-    public CommunityDAO(String database) {
-        super(database);
-    }
+   // public CommunityDAO(String database) {
+      //  super(database);
+   // }
 
     @Override
     public ArrayList<Community> getAllCommunitys() {

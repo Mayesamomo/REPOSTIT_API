@@ -43,6 +43,16 @@ public class User {
         this.password = password;
     }
 
+    public User(int Id, String fullName, String username, String email, String userType, int status, String date) {
+        this.Id = Id;
+        this.fullName = fullName;
+        this.username = username;
+        this.email = email;
+        this.userType = UserType.valueOf(userType);
+        this.status = status;
+        this.date = date;
+    }
+
     public User() {
     }
 

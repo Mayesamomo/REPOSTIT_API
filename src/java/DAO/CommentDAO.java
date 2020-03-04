@@ -22,9 +22,9 @@ import java.util.logging.Logger;
  */
 public class CommentDAO extends DAO implements CommentInterface {
 
-    public CommentDAO(String database) {
-        super(database);
-    }
+    //public CommentDAO(String database) {
+      //  super(database);
+    //}
 
     @Override
     public List<Comment> getUserComments(int user_id) {
@@ -213,7 +213,7 @@ public class CommentDAO extends DAO implements CommentInterface {
     }
 
     public static void main(String[] args) {
-        CommentDAO db = new CommentDAO("repostit");
+        CommentDAO db = new CommentDAO();
         System.out.println("all comments = " + db.getPostComments(23));
     }
 }
